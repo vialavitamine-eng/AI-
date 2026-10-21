@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow, noarchive">
+<meta name="referrer" content="no-referrer">
+<title>관리자 · 마이핏AI</title>
+<style>
+:root{--green:#00754A;--green-dark:#1E3932;--green-light:#d4e9e2;--bg:#f2f0eb;--card:#fff;--text:rgba(0,0,0,.87);--muted:rgba(0,0,0,.58);--line:#e0ddd6;--red:#c82014}
+*{box-sizing:border-box}
+[hidden]{display:none !important}
+body{margin:0;background:var(--bg);color:var(--text);font-family:"Noto Sans KR","Nunito Sans",system-ui,sans-serif;line-height:1.5;word-break:keep-all}
+header{background:var(--green-dark);color:#fff;padding:0 clamp(16px,3vw,32px);min-height:56px;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+header h1{font-size:18px;margin:0;font-weight:700}
+.who{display:flex;align-items:center;gap:12px;font-size:14px}
+main{padding:clamp(16px,3vw,32px);max-width:1400px;margin:0 auto}
+.card{background:var(--card);border-radius:12px;box-shadow:0 0 .5px rgba(0,0,0,.14),0 1px 1px rgba(0,0,0,.24);padding:clamp(16px,3vw,28px)}
+#login-view .card{max-width:440px;margin:40px auto}
+h2{margin:0 0 8px;font-size:22px;color:var(--green-dark)}
+p.sub{margin:0 0 16px;color:var(--muted);font-size:14px}
+label.f{display:block;font-size:14px;font-weight:600;margin-bottom:6px}
+input[type=email],input[type=search],select,textarea{font:inherit;font-size:15px;padding:10px 12px;border:1px solid #cfd4d8;border-radius:6px;background:#fff;color:inherit;max-width:100%}
+input:focus,select:focus,textarea:focus,button:focus-visible{outline:2px solid var(--green);outline-offset:1px}
+button{font:inherit;font-size:14px;font-weight:700;border-radius:50px;padding:9px 18px;min-height:40px;cursor:pointer;border:1px solid var(--green);background:var(--green);color:#fff}
+button.ghost{background:#fff;color:var(--green)}
+header button.ghost{background:transparent;color:#fff;border-color:rgba(255,255,255,.6)}
+button:disabled{opacity:.55;cursor:not-allowed}
+.msg{font-size:14px;margin-top:12px;min-height:21px}
+.msg.err{color:var(--red)}
+.msg.ok{color:var(--green)}
+.toolbar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-bottom:14px}
+.toolbar .grow{flex:1 1 220px}
+.toolbar input[type=search]{width:100%}
+.count{font-size:14px;color:var(--muted)}
+.wrap{overflow-x:auto;border:1px solid var(--line);border-radius:8px;background:#fff}
+table{border-collapse:collapse;width:100%;min-width:980px;font-size:14px}
+th,td{text-align:left;vertical-align:top;padding:10px 12px;border-bottom:1px solid var(--line)}
+th{background:#faf8f3;font-size:13px;color:var(--muted);white-space:nowrap;position:sticky;top:0}
+tr:last-child td{border-bottom:0}
+td.contact{font-weight:600;word-break:break-all}
+.tag{display:inline-block;font-size:12px;background:var(--green-light);color:var(--green-dark);border-radius:50px;padding:1px 8px;margin:0 4px 4px 0}
+.tag.kind{background:var(--green-dark);color:#fff}
+.tag.no{background:#eee;color:#666}
+td textarea{width:100%;min-width:200px;min-height:56px;resize:vertical}
+.rowmsg{display:block;font-size:12px;margin-top:4px;min-height:16px}
+.empty{padding:32px;text-align:center;color:var(--muted)}
+.note{font-size:13px;color:var(--muted);margin-top:12px}
+</style>
+</head>
+<body>
+<header>
+  <h1>마이핏AI · 관리자</h1>
+  <div class="who" id="who" hidden>
+    <span id="who-email"></span>
+    <button type="button" class="ghost" id="logout-btn">로그아웃</button>
+  </div>
+</header>
+
+<main>
+  <section id="boot-view"><div class="card"><p class="sub" id="boot-msg">불러오는 중...</p></div></section>
+
+  <section id="login-view" hidden>
+    <div class="card">
+      <h2>관리자 로그인</h2>
+      <p class="sub">비밀번호 없이, 이메일로 받은 로그인 링크로 들어와요.</p>
+      <form id="login-form" novalidate>
+        <label class="f" for="login-email">관리자 이메일</label>
+        <input id="login-email" type="email" autocomplete="email" inputmode="email" style="width:100%" placeholder="name@example.com">
+        <div style="margin-top:14px"><button type="submit" id="login-btn">로그인 링크 받기</button></div>
+      </form>
+      <div class="msg" id="login-msg" role="status"></div>
+    </div>
+  </section>
+
+  <section id="app-view" hidden>
+    <div class="card">
+      <div class="toolbar">
+        <div class="grow"><input type="search" id="q" placeholder="연락처·이름·메모 검색" aria-label="검색"></div>
+        <select id="f-kind" aria-label="신청 종류">
+          <option value="">종류: 전체</option>
+          <option value="launch_alert">출시 알림</option>
+          <option value="trial">체험단</option>
+        </select>
+        <select id="f-status" aria-label="처리 상태">
+          <option value="">상태: 전체</option>
+          <option value="new">신규</option>
+          <option value="contacted">연락함</option>
+          <option value="done">완료</option>
+        </select>
+        <button type="button" class="ghost" id="reload-btn">새로고침</button>
+        <button type="button" id="csv-btn">CSV 내려받기</button>
+      </div>
+      <div class="count" id="count" role="status"></div>
+      <div class="msg" id="app-msg" role="status"></div>
+      <div class="wrap" id="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>신청 시각</th><th>종류</th><th>연락처</th><th>이름</th><th>동의</th><th>퀴즈 요약</th><th>상태</th><th>메모</th><th></th>
+            </tr>
+          </thead>
+          <tbody id="rows"></tbody>
+        </table>
+        <div class="empty" id="empty" hidden></div>
+      </div>
+      <p class="note">CSV는 현재 화면에 보이는(검색·필터 적용된) 항목만 내려받아요. 엑셀 수식 삽입을 막기 위해 =, +, -, @ 등으로 시작하는 값 앞에 '가 붙어요.</p>
+    </div>
+  </section>
+</main>
+
+<script src="/js/config.js"></script>
+<script src="/admin/admin.js"></script>
+</body>
+</html>
