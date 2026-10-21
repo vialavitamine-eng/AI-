@@ -255,6 +255,7 @@ button:focus-visible,a:focus-visible,summary:focus-visible,input:focus-visible{o
   </div>
 </footer>
 </div>
+<script src="js/config.js"></script>
 <script>
 (function(){
 'use strict';
@@ -401,9 +402,10 @@ document.addEventListener('DOMContentLoaded',function(){
     $('lead-form').style.display='none';$('trial-form').style.display='none';msg('lead-msg','',true);msg('trial-msg','',true);
     show();setTimeout(goQuiz,50);
   });
-  var FN_URL='https://hrshyvfpyphgqszcuche.supabase.co/functions/v1/submit-form';
-  /* 공개용(anon) 키: 브라우저에 있어도 되는 값입니다. service_role(secret) 키는 절대 이 파일에 넣지 마세요. */
-  var ANON='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imhyc2h5dmZweXBoZ3FzemN1Y2hlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTI1NTU3MjUsImV4cCI6MjEwODEzMTcyNX0.EOpjQUq05hDEYUSZ6HR-EQcrMU8ABbikSHFOUbfo8GU';
+  /* 주소와 공개용 키는 js/config.js 한 곳에서만 관리합니다. */
+  var CFG=window.APP_CONFIG||{};
+  var FN_URL=String(CFG.submitFormUrl||'').trim();
+  var ANON=String(CFG.publicKey||'').trim();
   var EMAIL_RE=/^[^@\s]+@[^@\s]+\.[^@\s]+$/,PHONE_RE=/^01\d[- ]?\d{3,4}[- ]?\d{4}$/;
   function validContact(v){return EMAIL_RE.test(v)||PHONE_RE.test(v)}
   function quizSummary(){try{var r=calc();return r.productName+' / '+r.size+' / '+r.pressure}catch(err){return ''}}
@@ -414,8 +416,12 @@ document.addEventListener('DOMContentLoaded',function(){
     return '일시적인 오류가 났어요. 잠시 후 다시 시도해 주세요.';
   }
   function send(payload,msgId,form,okText){
+    /* 주소가 비어 있으면 아무것도 보내지 않고, 성공 메시지도 띄우지 않습니다. */
+    if(!FN_URL){msg(msgId,'연결 준비 중이에요. 잠시 후 다시 시도해 주세요.',false);return}
     var btn=form.querySelector('button[type=submit]');btn.disabled=true;msg(msgId,'전송 중이에요...',true);
-    fetch(FN_URL,{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+ANON,'apikey':ANON},body:JSON.stringify(payload)})
+    var headers={'Content-Type':'application/json'};
+    if(ANON){headers['Authorization']='Bearer '+ANON;headers['apikey']=ANON}
+    fetch(FN_URL,{method:'POST',headers:headers,body:JSON.stringify(payload)})
       .then(function(res){return res.json().catch(function(){return {}}).then(function(d){return {ok:res.ok&&d.ok===true,d:d}})})
       .then(function(r){
         if(r.ok){msg(msgId,okText,true);form.reset()}
