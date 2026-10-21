@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>마이핏AI · 내 사이즈 찾기</title>
+<meta name="description" content="사진 없이 질문 5개와 치수 2개로 산후 세미보정 제품·사이즈·압박 강도를 추천받으세요. (출시 예정)">
+<meta name="theme-color" content="#1E3932">
+<meta property="og:type" content="website">
+<meta property="og:title" content="마이핏AI · 내 사이즈 찾기">
+<meta property="og:description" content="사진 없이 질문 5개와 치수 2개로 사이즈와 압박 강도를 추천해 드려요.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;600;700&family=Noto+Sans+KR:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+--green-starbucks:#006241;--green-accent:#00754A;--green-house:#1E3932;--green-uplift:#2b5148;--green-light:#d4e9e2;
+--gold:#cba258;--gold-light:#dfc49d;--gold-lightest:#faf6ee;
+--white:#ffffff;--neutral-cool:#f9f9f9;--neutral-warm:#f2f0eb;--ceramic:#edebe9;--black:#000000;
+--text-black:rgba(0,0,0,.87);--text-black-soft:rgba(0,0,0,.58);--text-white:#fff;--text-white-soft:rgba(255,255,255,.70);--rewards-green:#33433d;
+--red:#c82014;--yellow:#fbbc05;--valid-tint:hsl(160 32% 87% / 33%);--invalid-tint:hsl(4 82% 43% / 5%);
+--input-border:#d6dbde;--hairline:#e7e7e7;--consent-green:rgb(0,130,72);
+--black-a06:rgba(0,0,0,.06);--black-a10:rgba(0,0,0,.1);--black-a20:rgba(0,0,0,.2);--black-a30:rgba(0,0,0,.3);--black-a40:rgba(0,0,0,.4);--black-a50:rgba(0,0,0,.5);--black-a60:rgba(0,0,0,.6);--black-a70:rgba(0,0,0,.7);--black-a80:rgba(0,0,0,.8);--black-a90:rgba(0,0,0,.9);
+--white-a10:rgba(255,255,255,.1);--white-a20:rgba(255,255,255,.2);--white-a30:rgba(255,255,255,.3);--white-a40:rgba(255,255,255,.4);--white-a50:rgba(255,255,255,.5);--white-a60:rgba(255,255,255,.6);--white-a70:rgba(255,255,255,.7);--white-a80:rgba(255,255,255,.8);--white-a90:rgba(255,255,255,.9);
+--surface-page:var(--neutral-warm);--surface-zone:var(--ceramic);--surface-card:var(--white);--surface-band:var(--green-house);--surface-footer:var(--green-house);--surface-menu:var(--neutral-cool);--surface-gold:var(--gold-lightest);
+--text-heading-brand:var(--green-starbucks);--text-body:var(--text-black);--text-muted:var(--text-black-soft);--text-on-band:var(--text-white);--text-on-band-muted:var(--text-white-soft);
+--action-primary:var(--green-accent);--action-primary-text:var(--white);--focus-ring:var(--green-accent);
+}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:"Nunito Sans","Noto Sans KR",sans-serif;word-break:keep-all}
+a{color:#006241}a:hover{color:#00754A}
+details>summary{list-style:none;cursor:pointer}details>summary::-webkit-details-marker{display:none}
+button{font-family:inherit}input{font-family:inherit}
+button:active{transform:scale(.96)}
+input[type=text]:focus{border-color:#00754A !important}
+button:focus-visible,a:focus-visible,summary:focus-visible,input:focus-visible{outline:2px solid var(--focus-ring);outline-offset:2px}
+</style>
+</head>
+<body>
+<div style="background:var(--neutral-warm);color:var(--text-black);font-family:'Nunito Sans','Noto Sans KR',sans-serif;line-height:1.6;letter-spacing:-.01em">
+
+<header id="site-header" style="position:sticky;top:0;z-index:20;background:#fff;box-shadow:var(--shadow-nav);height:64px;display:flex;align-items:center;justify-content:space-between;padding:0 clamp(16px,4vw,40px)">
+  <div style="font-weight:700;font-size:20px;color:var(--green-starbucks);letter-spacing:-.02em">마이핏AI</div>
+  <button id="header-cta" type="button" data-goquiz style="background:var(--green-accent);color:#fff;border:0;border-radius:50px;padding:10px 20px;min-height:44px;font-weight:700;font-size:15px;cursor:pointer;opacity:0;pointer-events:none;transition:opacity .2s">내 사이즈 찾기 시작</button>
+</header>
+
+<section id="hero" style="padding:clamp(40px,8vw,88px) clamp(16px,4vw,40px);max-width:1120px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,340px),1fr));gap:48px;align-items:center">
+  <div>
+    <div style="display:inline-block;background:var(--green-light);color:var(--green-house);font-weight:700;font-size:13px;padding:4px 12px;border-radius:50px;letter-spacing:.02em">출시 예정 · 출산 후 1~12개월</div>
+    <h1 style="font-size:clamp(40px,7vw,64px);line-height:1.1;margin:20px 0 16px;color:var(--green-starbucks);font-weight:700;letter-spacing:-.03em">내 사이즈 찾기</h1>
+    <p style="font-size:clamp(19px,2.4vw,22px);margin:0 0 8px;color:var(--text-black)">사진 없이, 질문 5개와 치수 2개로</p>
+    <p style="font-size:16px;margin:0 0 28px;color:var(--text-black-soft)">제품·사이즈·압박 강도를 한 번에 추천 · 약~중 압박 세미보정</p>
+    <button data-goquiz style="background:var(--green-accent);color:#fff;border:0;border-radius:50px;padding:16px 32px;min-height:56px;font-weight:700;font-size:18px;cursor:pointer" style-hover="background:var(--green-starbucks)" style-active="transform:scale(.95)">내 사이즈 찾기 시작</button>
+    <ul style="list-style:none;padding:0;margin:28px 0 0;display:flex;flex-wrap:wrap;gap:8px 20px;font-size:15px;color:var(--text-black-soft)">
+      <li>✓ 사진 불필요</li><li>✓ 1~2분 소요</li><li>✓ 가입 없이 이용</li>
+    </ul>
+  </div>
+  <figure style="margin:0;max-width:520px;width:100%;justify-self:center">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;align-items:start">
+      <img src="assets/images/4cf6889e.jpg" alt="콘셉트 이미지: 하이웨스트 세미보정 팬티" style="display:block;width:100%;aspect-ratio:3/4;object-fit:cover;object-position:top;border-radius:12px;box-shadow:var(--shadow-card)">
+      <img src="assets/images/ca3545c0.jpg" alt="콘셉트 이미지: 산후 벨리밴드형 보정밴드" style="display:block;width:100%;aspect-ratio:3/4;object-fit:cover;object-position:top;border-radius:12px;box-shadow:var(--shadow-card);margin-top:32px">
+    </div>
+    <figcaption style="font-size:13px;color:var(--text-black-soft);margin-top:12px">콘셉트 이미지 · 실제 제품 사진이 아니며 출시 제품과 다를 수 있어요</figcaption>
+  </figure>
+</section>
+
+<section id="empathy" style="background:#fff;padding:clamp(48px,7vw,80px) clamp(16px,4vw,40px)">
+  <div style="max-width:720px;margin:0 auto;display:grid;gap:20px">
+    <p style="margin:0;font-size:clamp(22px,3.4vw,28px);line-height:1.4;font-weight:700;color:var(--green-house)">예전 사이즈는 안 맞고, 새로 사자니 어떤 사이즈가 맞을지 모르겠어요.</p>
+    <p style="margin:0;font-size:clamp(22px,3.4vw,28px);line-height:1.4;font-weight:700;color:var(--green-house)">라인은 정리하고 싶지만, 너무 조이는 건 부담돼요.</p>
+    <p style="margin:0;font-size:17px;color:var(--text-black-soft)">그래서 마이핏AI은 사진도, 몸 비교도 없이 허리와 골반 치수만으로 사이즈와 압박 강도를 안내해요.</p>
+  </div>
+</section>
+
+<section id="how" style="padding:clamp(48px,7vw,88px) clamp(16px,4vw,40px);max-width:1120px;margin:0 auto">
+  <h2 style="font-size:28px;color:var(--green-starbucks);margin:0 0 32px">이렇게 진행돼요</h2>
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:40px;align-items:center">
+    <div style="display:grid;gap:12px">
+      <div style="display:flex;gap:16px;align-items:flex-start;background:#fff;border-radius:12px;padding:16px 20px;box-shadow:var(--shadow-card)">
+          <div style="flex:none;width:36px;height:36px;border-radius:50%;background:var(--green-accent);color:#fff;font-weight:700;display:flex;align-items:center;justify-content:center">①</div>
+          <div><div style="font-weight:700;color:var(--green-house)">질문 5개</div><div style="font-size:15px;color:var(--text-black-soft)">출산 후 경과, 분만 유형, 신경 쓰이는 부위 등을 골라 주세요.</div></div>
+        </div>
+<div style="display:flex;gap:16px;align-items:flex-start;background:#fff;border-radius:12px;padding:16px 20px;box-shadow:var(--shadow-card)">
+          <div style="flex:none;width:36px;height:36px;border-radius:50%;background:var(--green-accent);color:#fff;font-weight:700;display:flex;align-items:center;justify-content:center">②</div>
+          <div><div style="font-weight:700;color:var(--green-house)">허리·골반 치수 입력</div><div style="font-size:15px;color:var(--text-black-soft)">줄자로 허리와 골반 둘레를 재어 숫자만 입력해 주세요.</div></div>
+        </div>
+<div style="display:flex;gap:16px;align-items:flex-start;background:#fff;border-radius:12px;padding:16px 20px;box-shadow:var(--shadow-card)">
+          <div style="flex:none;width:36px;height:36px;border-radius:50%;background:var(--green-accent);color:#fff;font-weight:700;display:flex;align-items:center;justify-content:center">③</div>
+          <div><div style="font-weight:700;color:var(--green-house)">제품·사이즈·압박 강도 추천</div><div style="font-size:15px;color:var(--text-black-soft)">입력한 정보로 나에게 맞는 조합을 한 번에 안내해요.</div></div>
+        </div>
+<div style="display:flex;gap:16px;align-items:flex-start;background:#fff;border-radius:12px;padding:16px 20px;box-shadow:var(--shadow-card)">
+          <div style="flex:none;width:36px;height:36px;border-radius:50%;background:var(--green-accent);color:#fff;font-weight:700;display:flex;align-items:center;justify-content:center">④</div>
+          <div><div style="font-weight:700;color:var(--green-house)">(선택) 알림·체험단 신청</div><div style="font-size:15px;color:var(--text-black-soft)">결과를 본 뒤, 원하실 때만 연락처를 남겨 주세요.</div></div>
+        </div>
+    </div>
+    <figure style="margin:0"><img src="assets/images/9639ca67.jpg" alt="콘셉트 이미지: 팬티, 보정밴드, 스마트폰, 줄자" loading="lazy" style="width:100%;border-radius:12px;display:block"><figcaption style="font-size:13px;color:var(--text-black-soft);margin-top:8px">콘셉트 이미지 · 실제 제품 사진이 아니며 출시 제품과 다를 수 있어요</figcaption></figure>
+  </div>
+</section>
+
+<section id="quiz" style="background:var(--ceramic);padding:clamp(40px,6vw,72px) clamp(16px,4vw,40px)">
+  <div style="max-width:640px;margin:0 auto">
+    <div style="display:flex;align-items:center;gap:8px;margin-bottom:16px"><h2 style="font-size:28px;color:var(--green-starbucks);margin:0">내 사이즈 찾기</h2><span style="background:var(--gold);color:#000;font-size:12px;font-weight:700;padding:2px 10px;border-radius:50px">베타</span></div>
+    <div style="background:#fff;border-radius:12px;box-shadow:var(--shadow-card);padding:clamp(20px,4vw,36px)">
+      <div id="quiz-step">
+        <div style="display:flex;justify-content:space-between;gap:8px;font-size:14px;font-weight:600;color:var(--text-black-soft)"><span id="step-label"></span><span>사진 없이 · 결과 확인용으로만 사용</span></div>
+        <div style="height:6px;background:var(--ceramic);border-radius:6px;margin:10px 0 28px"><div id="progress" style="width:0;height:100%;background:var(--green-accent);border-radius:6px;transition:width .4s"></div></div>
+        <div id="q-title" style="font-size:22px;font-weight:700;color:var(--green-starbucks);line-height:1.35"></div>
+        <div id="q-hint" style="font-size:14px;color:var(--text-black-soft);margin:6px 0 20px;min-height:21px"></div>
+        <div id="q-choice" style="display:grid;gap:10px"></div>
+        <div id="q-number" style="display:none">
+          <div style="display:flex;align-items:center;gap:10px">
+            <input id="num-input" type="text" inputmode="numeric" aria-label="둘레(cm)" placeholder="예: 78" style="width:140px;font-size:24px;padding:12px 16px;border:1px solid var(--input-border);border-radius:4px;outline:none">
+            <span style="font-size:18px;color:var(--text-black-soft)">cm</span>
+          </div>
+          <div id="q-measure" style="margin-top:16px;background:var(--neutral-warm);border-radius:12px;padding:14px 16px;font-size:14px;color:var(--text-black-soft)"></div>
+        </div>
+        <div id="q-error" role="alert" style="font-size:14px;color:var(--red);min-height:20px;margin-top:12px"></div>
+        <div style="display:flex;gap:12px;justify-content:space-between;margin-top:12px">
+          <button id="btn-back" type="button" style="background:#fff;color:var(--green-accent);border:1px solid var(--green-accent);border-radius:50px;padding:12px 24px;min-height:48px;font-weight:700;font-size:16px;cursor:pointer">이전</button>
+          <button id="btn-next" type="button" style="background:var(--green-accent);color:#fff;border:0;border-radius:50px;padding:12px 32px;min-height:48px;font-weight:700;font-size:16px;cursor:pointer">다음</button>
+        </div>
+      </div>
+
+      <div id="result" style="display:none">
+        <div style="font-size:14px;font-weight:700;color:var(--green-accent)">추천 결과 · 임시 추천</div>
+        <h3 id="res-title" style="font-size:28px;margin:6px 0 20px;color:var(--green-starbucks);line-height:1.25"></h3>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,200px),1fr));gap:16px;align-items:center">
+          <div><img id="res-img1" src="assets/images/4cf6889e.jpg" alt="콘셉트 이미지: 하이웨스트 세미보정 팬티" style="width:100%;aspect-ratio:3/4;object-fit:cover;object-position:top;border-radius:12px;background:var(--neutral-warm)"><img id="res-img2" src="assets/images/ca3545c0.jpg" alt="콘셉트 이미지: 산후 벨리밴드형 보정밴드" style="display:none;width:100%;aspect-ratio:3/4;object-fit:cover;object-position:top;border-radius:12px;background:var(--neutral-warm)"></div>
+          <div style="font-size:15px">
+            <div style="font-weight:700;margin-bottom:6px;color:var(--green-house)">이유</div>
+            <ul id="res-reasons" style="margin:0;padding-left:18px;display:grid;gap:4px"></ul>
+          </div>
+        </div>
+        <div id="res-boundary" style="display:none;margin-top:16px;background:var(--gold-lightest);border-radius:12px;padding:12px 16px;font-size:15px"></div>
+        <div id="res-strong" style="display:none;margin-top:12px;background:var(--green-light);border-radius:12px;padding:12px 16px;font-size:15px">현재 준비 중인 제품의 가장 강한 단계는 ‘중’이에요. ‘중’으로 안내해 드릴게요.</div>
+        <div id="res-alt" style="display:none;margin-top:12px;font-size:15px;color:var(--text-black-soft)"></div>
+        <div style="margin-top:16px;font-size:13px;color:var(--text-black-soft)">입력하신 정보로 점수를 계산한 추천이며 의료적 조언이 아닙니다. 사이즈표는 확정 전이라 임시 추천이에요.</div>
+
+        <div style="margin-top:20px;display:flex;align-items:center;gap:8px;flex-wrap:wrap;font-size:15px">
+          <span style="font-weight:700">도움이 됐나요?</span>
+          <span id="fb-opts" style="display:contents"></span>
+        </div>
+
+        <div style="margin-top:28px;border-top:1px solid var(--hairline);padding-top:24px;display:grid;gap:12px">
+          <button id="btn-lead" type="button" style="background:var(--green-accent);color:#fff;border:0;border-radius:50px;padding:14px 24px;min-height:52px;font-weight:700;font-size:17px;cursor:pointer">① 출시 알림 받기</button>
+          <button id="btn-trial" type="button" style="background:#fff;color:var(--green-accent);border:1px solid var(--green-accent);border-radius:50px;padding:14px 24px;min-height:52px;font-weight:700;font-size:17px;cursor:pointer">② 체험단 지원하기</button>
+          <button id="btn-restart" type="button" style="background:none;border:0;color:var(--text-black-soft);text-decoration:underline;font-size:15px;cursor:pointer;min-height:44px">다시 하기</button>
+        </div>
+
+        <form id="lead-form" novalidate style="display:none;margin-top:8px;background:var(--neutral-warm);border-radius:12px;padding:20px;gap:12px">
+          <div style="font-weight:700;color:var(--green-house)">출시 알림 신청</div>
+          <input id="lead-val" type="text" aria-label="이메일 또는 휴대폰 번호" placeholder="이메일 또는 휴대폰 번호" style="font-size:16px;padding:12px 14px;border:1px solid var(--input-border);border-radius:4px;outline:none">
+          <label style="display:flex;gap:10px;font-size:14px;align-items:flex-start;cursor:pointer"><input id="lead-link" type="checkbox" style="width:20px;height:20px;margin:0;flex:none"><span>(선택) 퀴즈 결과를 연락처와 함께 저장하는 것에 동의해요. 동의하지 않으면 결과는 연락처와 분리돼요.</span></label>
+          <button type="submit" style="background:var(--green-accent);color:#fff;border:0;border-radius:50px;padding:12px 24px;min-height:48px;font-weight:700;font-size:16px;cursor:pointer">신청하기</button>
+          <div id="lead-msg" role="status" style="font-size:14px"></div>
+        </form>
+
+        <form id="trial-form" novalidate style="display:none;margin-top:8px;background:var(--neutral-warm);border-radius:12px;padding:20px;gap:12px">
+          <div style="font-weight:700;color:var(--green-house)">체험단 지원 (20명)</div>
+          <input id="trial-name" type="text" aria-label="이름" placeholder="이름" style="font-size:16px;padding:12px 14px;border:1px solid var(--input-border);border-radius:4px;outline:none">
+          <input id="trial-contact" type="text" aria-label="이메일 또는 휴대폰 번호" placeholder="이메일 또는 휴대폰 번호" style="font-size:16px;padding:12px 14px;border:1px solid var(--input-border);border-radius:4px;outline:none">
+          <div style="font-size:14px;color:var(--text-black-soft)">체험단은 후기 작성이 조건이며, 후기에는 제품 제공 사실(협찬) 표기가 필요해요. 선정 기준과 발표 일정은 확정 후 안내해 드릴게요.</div>
+          <label style="display:flex;gap:10px;font-size:14px;align-items:flex-start;cursor:pointer"><input id="trial-agree" type="checkbox" style="width:20px;height:20px;margin:0;flex:none"><span>후기 작성과 협찬 표기, 개인정보 수집·이용에 동의해요.</span></label>
+          <button type="submit" style="background:var(--green-accent);color:#fff;border:0;border-radius:50px;padding:12px 24px;min-height:48px;font-weight:700;font-size:16px;cursor:pointer">지원하기</button>
+          <div id="trial-msg" role="status" style="font-size:14px"></div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="products" style="padding:clamp(48px,7vw,88px) clamp(16px,4vw,40px);max-width:1120px;margin:0 auto">
+  <h2 style="font-size:28px;color:var(--green-starbucks);margin:0 0 32px">추천받게 될 제품 2종</h2>
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:24px">
+    <article style="background:#fff;border-radius:12px;box-shadow:var(--shadow-card);overflow:hidden">
+        
+        <img src="assets/images/4cf6889e.jpg" alt="콘셉트 이미지: 하이웨스트 세미보정 팬티" loading="lazy" style="display:block;width:100%;aspect-ratio:3/4;object-fit:cover;object-position:top;background:var(--neutral-warm)"><div style="padding:20px 24px 24px">
+          <div style="font-size:13px;font-weight:700;color:var(--green-accent)">SKU 1 · 데일리 · 약~중 압박</div>
+          <h3 style="margin:4px 0 8px;font-size:22px;color:var(--green-house)">하이웨스트 세미보정 팬티</h3>
+          <div style="font-size:15px;color:var(--text-black-soft)">매일 편하게 입는 세미보정. 라인 정리와 지지력에 집중했어요.</div>
+          <div style="margin-top:12px;font-size:15px;font-weight:700">가격 · 출시 시 안내</div>
+        </div>
+      </article><article style="background:#fff;border-radius:12px;box-shadow:var(--shadow-card);overflow:hidden">
+        
+        <img src="assets/images/ca3545c0.jpg" alt="콘셉트 이미지: 산후 벨리밴드형 보정밴드" loading="lazy" style="display:block;width:100%;aspect-ratio:3/4;object-fit:cover;object-position:top;background:var(--neutral-warm)"><div style="padding:20px 24px 24px">
+          <div style="font-size:13px;font-weight:700;color:var(--green-accent)">SKU 2 · 외출·집중 케어</div>
+          <h3 style="margin:4px 0 8px;font-size:22px;color:var(--green-house)">산후 벨리밴드형 보정밴드</h3>
+          <div style="font-size:15px;color:var(--text-black-soft)">압박을 조절할 수 있는 밴드형. 외출할 때나 집중 케어가 필요할 때 좋아요.</div>
+          <div style="margin-top:12px;font-size:15px;font-weight:700">가격 · 출시 시 안내</div>
+        </div>
+      </article>
+  </div>
+  <div style="font-size:13px;color:var(--text-black-soft);margin-top:12px">콘셉트 이미지 · 실제 제품 사진이 아니며 출시 제품과 다를 수 있어요</div>
+</section>
+
+<section id="assurance" style="background:var(--green-house);color:#fff;padding:clamp(48px,7vw,80px) clamp(16px,4vw,40px)">
+  <div style="max-width:720px;margin:0 auto">
+    <h2 style="font-size:28px;margin:0 0 16px;color:#fff">안심하고 입력하세요</h2>
+    <p style="font-size:19px;margin:0 0 8px">사진은 받지 않아요.</p>
+    <p style="font-size:19px;margin:0 0 20px">입력하신 치수는 결과 확인용으로만 사용해요.</p>
+    <p style="font-size:15px;margin:0;color:var(--text-white-soft)">교환·환불 정책은 출시 시 안내해 드릴게요.</p>
+  </div>
+</section>
+
+<section id="faq" style="padding:clamp(48px,7vw,88px) clamp(16px,4vw,40px);max-width:720px;margin:0 auto">
+  <h2 style="font-size:28px;color:var(--green-starbucks);margin:0 0 24px">자주 묻는 질문</h2>
+  <div style="display:grid;gap:10px">
+    <details style="background:#fff;border-radius:12px;box-shadow:var(--shadow-card);padding:0 20px">
+        <summary style="padding:16px 0;font-weight:700;color:var(--green-house);min-height:24px">치수는 어떻게 재나요?</summary>
+        <div style="padding:0 0 16px;font-size:15px;color:var(--text-black-soft)">허리·골반 둘레를 퀴즈 안에서 한 줄 설명으로 안내해요. 정확한 측정 위치는 확정 후 업데이트돼요.</div>
+      </details>
+<details style="background:#fff;border-radius:12px;box-shadow:var(--shadow-card);padding:0 20px">
+        <summary style="padding:16px 0;font-weight:700;color:var(--green-house);min-height:24px">입력한 정보는 어떻게 쓰이나요?</summary>
+        <div style="padding:0 0 16px;font-size:15px;color:var(--text-black-soft)">추천 결과를 만드는 데 사용해요. 저장 범위와 보관 기간은 개인정보 정책 확정 후 안내해 드릴게요.</div>
+      </details>
+<details style="background:#fff;border-radius:12px;box-shadow:var(--shadow-card);padding:0 20px">
+        <summary style="padding:16px 0;font-weight:700;color:var(--green-house);min-height:24px">제왕절개 후에도 사용할 수 있나요?</summary>
+        <div style="padding:0 0 16px;font-size:15px;color:var(--text-black-soft)">회복 상태에 대해서는 담당 의료진과 상의해 주세요. 퀴즈는 분만 유형에 따라 압박 강도를 조정해 안내하지만 의료적 조언은 아니에요.</div>
+      </details>
+<details style="background:#fff;border-radius:12px;box-shadow:var(--shadow-card);padding:0 20px">
+        <summary style="padding:16px 0;font-weight:700;color:var(--green-house);min-height:24px">사이즈가 안 맞으면?</summary>
+        <div style="padding:0 0 16px;font-size:15px;color:var(--text-black-soft)">교환·환불 정책은 확정 후 안내해 드릴게요.</div>
+      </details>
+<details style="background:#fff;border-radius:12px;box-shadow:var(--shadow-card);padding:0 20px">
+        <summary style="padding:16px 0;font-weight:700;color:var(--green-house);min-height:24px">언제 출시되나요?</summary>
+        <div style="padding:0 0 16px;font-size:15px;color:var(--text-black-soft)">확정되면 알려드릴게요. 결과 화면에서 출시 알림을 신청해 두세요.</div>
+      </details>
+<details style="background:#fff;border-radius:12px;box-shadow:var(--shadow-card);padding:0 20px">
+        <summary style="padding:16px 0;font-weight:700;color:var(--green-house);min-height:24px">체험단은 어떻게 선정하나요?</summary>
+        <div style="padding:0 0 16px;font-size:15px;color:var(--text-black-soft)">선정 기준과 발표 일정은 확정 후 안내해 드릴게요. 후기 작성과 협찬 표기가 필요해요.</div>
+      </details>
+  </div>
+</section>
+
+<section id="final-cta" style="background:var(--green-light);padding:clamp(48px,7vw,72px) clamp(16px,4vw,40px);text-align:center">
+  <h2 style="font-size:28px;color:var(--green-house);margin:0 0 20px">내 사이즈, 1~2분이면 찾아요</h2>
+  <button data-goquiz style="background:var(--green-accent);color:#fff;border:0;border-radius:50px;padding:16px 32px;min-height:56px;font-weight:700;font-size:18px;cursor:pointer" style-active="transform:scale(.95)">내 사이즈 찾기</button>
+  <div style="margin-top:16px;font-size:15px"><a href="#quiz" data-goquiz>내 결과 다시 보기</a> · 출시 알림은 결과 화면에서 신청할 수 있어요</div>
+</section>
+
+<footer id="footer" style="background:var(--green-house);color:var(--text-white-soft);padding:40px clamp(16px,4vw,40px);font-size:14px">
+  <div style="max-width:1120px;margin:0 auto;display:grid;gap:12px">
+    <div style="color:#fff;font-weight:700;font-size:18px">마이핏AI</div>
+    <div>상호 · 대표자 · 사업자등록번호 · 통신판매업 신고 · 연락처 [확인 필요, 판매 시작 전 필수]</div>
+    <div style="display:flex;gap:20px;flex-wrap:wrap"><a href="privacy.html" style="color:#fff">개인정보처리방침</a><a href="terms.html" style="color:#fff">이용약관</a></div>
+    <div>광고성 정보 수신 안내: 출시 알림 신청자에게만 발송해요.</div>
+  </div>
+</footer>
+</div>
+<script>
+(function(){
+'use strict';
+var QS=[
+ {k:'q1',title:'출산 후 얼마나 지났나요?',hint:'',opts:['1개월 미만','1~3개월','3~6개월','6~12개월','12개월 이상']},
+ {k:'q2',title:'분만 유형을 알려주세요',hint:'선택 응답이에요. 건너뛰어도 괜찮아요.',opts:['자연분만','제왕절개','답하고 싶지 않아요'],optional:true},
+ {k:'q3',title:'신경 쓰이는 부위를 골라 주세요',hint:'여러 개 선택할 수 있어요.',opts:['아랫배','허리·옆구리','골반·엉덩이','허벅지'],multi:true},
+ {k:'q4',title:'평소 하의 사이즈는 어느 쪽인가요?',hint:'지금 입는 사이즈 기준이에요.',opts:['S 이하','M','L','XL 이상']},
+ {k:'q5',title:'원하는 압박 강도는요?',hint:'',opts:['약','중','강']},
+ {k:'waist',title:'허리 둘레를 입력해 주세요',num:true,min:50,max:130,measure:'배꼽 높이에서 가장 가는 부분을 편하게 한 바퀴 재어 숫자만 입력해 주세요. (측정 기준점 확정 전)'},
+ {k:'hip',title:'골반(엉덩이) 둘레를 입력해 주세요',num:true,min:60,max:150,measure:'엉덩이에서 가장 넓은 부분을 한 바퀴 재어 숫자만 입력해 주세요. (측정 기준점 확정 전)'}
+];
+var SIZES=['S','M','L'], WT=[70,80], HT=[90,98];
+var S={step:0,ans:{q3:[]},num:'',done:false,fb:''};
+var $=function(id){return document.getElementById(id)};
+
+function save(){try{sessionStorage.setItem('myfit',JSON.stringify({step:S.step,ans:S.ans,done:S.done,num:S.num}))}catch(e){}}
+function load(){try{var d=JSON.parse(sessionStorage.getItem('myfit')||'null');
+  if(d&&typeof d.step==='number'&&d.step>=0&&d.step<QS.length&&d.ans){S.step=d.step;S.ans=d.ans;if(!S.ans.q3)S.ans.q3=[];S.done=!!d.done;S.num=d.num||''}}catch(e){}}
+function goQuiz(e){if(e&&e.preventDefault)e.preventDefault();var el=$('quiz');if(el)window.scrollTo({top:el.getBoundingClientRect().top+window.scrollY-72,behavior:'smooth'})}
+
+function calc(){
+  var a=S.ans,w=+a.waist,h=+a.hip;
+  var idx=function(v,t){return v<t[0]?0:v<t[1]?1:2};
+  var near=function(v,t){return t.some(function(x){return Math.abs(v-x)<=2})};
+  var si=Math.max(idx(w,WT),idx(h,HT));
+  var boundary=near(w,WT)||near(h,HT);
+  var q4i=['S 이하','M','L','XL 이상'].indexOf(a.q4);
+  if(boundary&&q4i>=0){if(q4i>=2&&si<2)si+=1}
+  var alt=boundary?Math.max(0,Math.min(2,si===0?1:si-1)):si;
+  var q3=a.q3||[];
+  var s2=0;
+  if((q3.indexOf('아랫배')>-1||q3.indexOf('허리·옆구리')>-1)&&a.q5==='중')s2+=1;
+  if(a.q5==='강')s2+=1;
+  if(q3.indexOf('골반·엉덩이')>-1&&q3.length===1)s2-=1;
+  var p2=s2>=1;
+  var pr=a.q5==='약'?0:1, strong=a.q5==='강';
+  if(a.q2==='제왕절개')pr=Math.max(0,pr-1);
+  var P=['약','중'];
+  var reasons=['허리 '+w+'cm · 골반 '+h+'cm 기준으로 계산했어요.'];
+  reasons.push(p2?'신경 쓰이는 부위와 압박 선택을 보면 조절이 가능한 밴드형이 어울려요.':'데일리로 입기 좋은 약~중 압박 세미보정 팬티가 어울려요.');
+  if(a.q2==='제왕절개')reasons.push('분만 유형에 맞춰 압박을 한 단계 낮춰 안내했어요. (의료 조언이 아니에요)');
+  var p1='하이웨스트 세미보정 팬티', pb='산후 벨리밴드형 보정밴드';
+  var close=(s2===0&&q3.length>1);
+  return{productName:p2?pb:p1,band:p2,size:SIZES[si],altSize:SIZES[alt],boundary:boundary&&alt!==si,pressure:P[pr],strong:strong,reasons:reasons,hasAlt:close,altName:p2?p1:pb};
+}
+
+function renderChoice(q){
+  var box=$('q-choice');box.textContent='';
+  var cur=S.ans[q.k];
+  q.opts.forEach(function(l){
+    var sel=q.multi?(S.ans.q3||[]).indexOf(l)>-1:cur===l;
+    var b=document.createElement('button');b.type='button';b.textContent=l;
+    b.setAttribute('aria-pressed',sel?'true':'false');
+    b.style.cssText='text-align:left;min-height:52px;padding:12px 20px;border-radius:50px;font-size:16px;cursor:pointer;color:var(--text-black);transition:all .2s;'
+      +'border:'+(sel?'2px solid var(--green-accent)':'1px solid var(--input-border)')+';background:'+(sel?'var(--valid-tint)':'#fff')+';font-weight:'+(sel?700:400);
+    b.addEventListener('click',function(){
+      var na=Object.assign({},S.ans);
+      if(q.multi){var c=S.ans.q3||[];na.q3=c.indexOf(l)>-1?c.filter(function(x){return x!==l}):c.concat([l])}
+      else na[q.k]=l;
+      S.ans=na;$('q-error').textContent='';save();renderQuiz();
+    });
+    box.appendChild(b);
+  });
+}
+function renderQuiz(){
+  var q=QS[S.step];
+  $('step-label').textContent='질문 '+(S.step+1)+' / '+QS.length;
+  $('progress').style.width=Math.round((S.step+1)/QS.length*100)+'%';
+  $('q-title').textContent=q.title;
+  $('q-hint').textContent=q.hint||'';
+  $('q-choice').style.display=q.num?'none':'grid';
+  $('q-number').style.display=q.num?'block':'none';
+  if(q.num){$('q-measure').textContent=q.measure;$('num-input').value=S.num}else renderChoice(q);
+  $('btn-back').style.visibility=S.step>0?'visible':'hidden';
+  $('btn-next').textContent=S.step===QS.length-1?'결과 보기':'다음';
+}
+function valid(){
+  var q=QS[S.step],a=S.ans;
+  if(q.num){var v=+S.num;return !(!S.num||isNaN(v)||v<q.min||v>q.max)}
+  if(q.optional)return true;
+  if(q.multi)return (a.q3||[]).length>0;
+  return !!a[q.k];
+}
+function show(){
+  $('quiz-step').style.display=S.done?'none':'block';
+  $('result').style.display=S.done?'block':'none';
+  if(S.done)renderResult(); else renderQuiz();
+}
+function renderResult(){
+  var r=calc();
+  var t=$('res-title');t.textContent=r.productName;t.appendChild(document.createElement('br'));
+  t.appendChild(document.createTextNode('사이즈 '+r.size+' · 압박 '+r.pressure));
+  $('res-img1').style.display=r.band?'none':'block';
+  $('res-img2').style.display=r.band?'block':'none';
+  var ul=$('res-reasons');ul.textContent='';
+  r.reasons.forEach(function(x){var li=document.createElement('li');li.textContent=x;ul.appendChild(li)});
+  var bd=$('res-boundary');bd.style.display=r.boundary?'block':'none';
+  bd.textContent='두 사이즈 사이예요. 편안함을 원하시면 큰 쪽, 지지력을 원하시면 작은 쪽을 추천해요 ('+r.altSize+' / '+r.size+')';
+  $('res-strong').style.display=r.strong?'block':'none';
+  var al=$('res-alt');al.style.display=r.hasAlt?'block':'none';al.textContent='함께 보면 좋아요: '+r.altName;
+  renderFeedback();
+}
+function renderFeedback(){
+  var box=$('fb-opts');box.textContent='';
+  [['yes','네'],['no','아니요'],['size_unsure','사이즈가 아직 헷갈려요']].forEach(function(p){
+    var on=S.fb===p[0];
+    var b=document.createElement('button');b.type='button';b.textContent=p[1];b.setAttribute('aria-pressed',on?'true':'false');
+    b.style.cssText='border:1px solid var(--green-accent);border-radius:50px;padding:6px 16px;min-height:44px;font-size:14px;font-weight:600;cursor:pointer;background:'+(on?'var(--green-accent)':'#fff')+';color:'+(on?'#fff':'var(--green-accent)');
+    b.addEventListener('click',function(){S.fb=p[0];renderFeedback()});
+    box.appendChild(b);
+  });
+}
+function msg(id,text,ok){var m=$(id);m.textContent=text;m.style.color=ok?'var(--green-accent)':'var(--red)'}
+function toggleForm(which){
+  var lead=$('lead-form'),trial=$('trial-form');
+  if(which==='lead'){var o=lead.style.display==='none';lead.style.display=o?'grid':'none';trial.style.display='none'}
+  else{var o2=trial.style.display==='none';trial.style.display=o2?'grid':'none';lead.style.display='none'}
+}
+
+document.addEventListener('DOMContentLoaded',function(){
+  load();show();
+  Array.prototype.forEach.call(document.querySelectorAll('[data-goquiz]'),function(el){el.addEventListener('click',goQuiz)});
+  var cta=$('header-cta'),scrolled=false;
+  function onScroll(){var v=window.scrollY>400;if(v!==scrolled){scrolled=v;cta.style.opacity=v?1:0;cta.style.pointerEvents=v?'auto':'none'}}
+  window.addEventListener('scroll',onScroll,{passive:true});onScroll();
+
+  $('num-input').addEventListener('input',function(e){S.num=e.target.value.replace(/[^0-9.]/g,'');if(e.target.value!==S.num)e.target.value=S.num;$('q-error').textContent='';save()});
+  $('btn-back').addEventListener('click',function(){
+    var p=S.step-1;if(p<0)return;var k=QS[p].k;
+    S.step=p;S.num=QS[p].num?String(S.ans[k]||''):'';$('q-error').textContent='';save();renderQuiz();
+  });
+  $('btn-next').addEventListener('click',function(){
+    var q=QS[S.step];
+    if(!valid()){$('q-error').textContent=q.num?'다시 확인해 주세요. ('+q.min+'~'+q.max+'cm 범위)':'답을 선택하면 다음으로 갈 수 있어요.';return}
+    var na=Object.assign({},S.ans);if(q.num)na[q.k]=S.num;S.ans=na;S.error='';$('q-error').textContent='';
+    if(S.step===QS.length-1){S.done=true;save();show();setTimeout(goQuiz,50);return}
+    var n=S.step+1;S.step=n;S.num=QS[n].num?String(na[QS[n].k]||''):'';save();renderQuiz();
+  });
+  $('btn-lead').addEventListener('click',function(){toggleForm('lead')});
+  $('btn-trial').addEventListener('click',function(){toggleForm('trial')});
+  $('btn-restart').addEventListener('click',function(){
+    S={step:0,ans:{q3:[]},num:'',done:false,fb:''};save();
+    $('lead-form').style.display='none';$('trial-form').style.display='none';msg('lead-msg','',true);msg('trial-msg','',true);
+    show();setTimeout(goQuiz,50);
+  });
+  $('lead-form').addEventListener('submit',function(e){
+    e.preventDefault();var v=$('lead-val').value.trim();
+    if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(v)&&!/^01\d[- ]?\d{3,4}[- ]?\d{4}$/.test(v)){msg('lead-msg','이메일 또는 휴대폰 번호를 확인해 주세요.',false);return}
+    console.log('lead_submit',{linked:$('lead-link').checked});
+    msg('lead-msg','신청 완료! 출시되면 알려드릴게요.',true);
+  });
+  $('trial-form').addEventListener('submit',function(e){
+    e.preventDefault();
+    if(!$('trial-name').value.trim()||!$('trial-contact').value.trim()||!$('trial-agree').checked){msg('trial-msg','이름, 연락처, 동의 항목을 확인해 주세요.',false);return}
+    console.log('trial_apply');
+    msg('trial-msg','지원이 접수됐어요. 선정 결과는 확정 후 안내해 드릴게요.',true);
+  });
+});
+})();
+
+</script>
+</body>
+</html>
